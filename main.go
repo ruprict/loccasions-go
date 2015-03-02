@@ -24,6 +24,7 @@ func main() {
 	//r.PathPrefix("/public/").Handler(http.StripPrefix("/public", http.FileServer(http.Dir("public/"))))
 	r.HandleFunc("/api/users", context.Handler(api.UsersCreateHandler)).Methods("POST")
 	r.HandleFunc("/api/users", context.Handler(api.UsersIndexHandler)).Methods("GET")
+	r.HandleFunc("/api/users/{userId}", context.Handler(api.UsersUpdateHandler)).Methods("PUT", "PATCH")
 	r.HandleFunc("/api/users/{userId}/loccasions", context.Handler(api.LoccasionsIndexHandler)).Methods("GET")
 	r.HandleFunc("/api/users/{userId}/loccasions", context.Handler(api.LoccasionsCreateHandler)).Methods("POST")
 	n := negroni.Classic()
