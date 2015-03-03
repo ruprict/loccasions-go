@@ -12,7 +12,7 @@ import (
 )
 
 type Loccasion struct {
-	Id          int    `json: "id"`
+	ID          int    `json: "id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	UserID      int    `json:"userId"`
@@ -23,7 +23,7 @@ func (loc Loccasion) MarshalJSON() ([]byte, error) {
 	userlink.WriteString("/users/")
 	userlink.WriteString(strconv.Itoa(loc.UserID))
 	return json.Marshal(map[string]interface{}{
-		"id":          loc.Id,
+		"id":          loc.ID,
 		"name":        loc.Name,
 		"description": loc.Description,
 		"user":        userlink.String(),

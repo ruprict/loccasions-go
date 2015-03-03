@@ -21,6 +21,25 @@ type User struct {
 	DeletedAt  time.Time
 }
 
+type LocLink struct {
+	ID   int    `json:"id"`
+	Link string `json:"link"`
+}
+
+func (user User) MarshalJSON() ([]byte, error) {
+	var locLinks []LocLink
+	for _, element := range user.Loccasions {
+		l := LocLink{ID: element.ID, Link: "/loccasions/" + strconv.Itoa(element.ID)}
+		locLinks = append(locLinks, l)
+	}
+	return json.Marshal(map[string]interface{}{
+		"id":         user.ID,
+		"name":       user.Name,
+		"email":      user.Email,
+		"locassions": locLinks,
+	})
+}
+
 func UsersCreateHandler(context *app.Context, rw http.ResponseWriter, req *http.Request) error {
 	rw.Header().Set("Content-Type", "application/json")
 	decoder := json.NewDecoder(req.Body)
